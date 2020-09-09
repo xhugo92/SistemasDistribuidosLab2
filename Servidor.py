@@ -15,6 +15,17 @@ def processo(nome):
                     dic[y]=1
                 else:
                     dic[y]=dic[y]+1
+        if len(dic)>10:
+            dicaux={}
+            valores=list(dic.values())
+            for x in valores[len(valores)-10:]:
+                chaves=list(dic.keys())
+                for y in chaves:
+                    if dic[y]==x:
+                        dicaux[y]=x
+                        dic.pop(y)
+                        break
+            return dicaux
         return dic
                 
 
@@ -35,8 +46,6 @@ sock.listen(1)
 nsock, endereco = sock.accept()
 while True:
     msg= nsock.recv(1024)
-    if not msg:
-        break
     msg=str(msg, encoding='utf-8').split(" ")
     retornos=[]
     for x in msg:
